@@ -7,6 +7,7 @@ import { healthRoutes } from "./shared/health/health.routes";
 import { authRoutes } from "./modules/auth/auth.routes";
 import { userRoutes } from "./modules/users/users.routes";
 import { expensesRoutes } from "./modules/expenses/expenses.routes";
+import { serviceRoutes } from "./modules/service/service.routes";
 
 export function createApp(): Application {
   const app = express();
@@ -26,6 +27,7 @@ export function createApp(): Application {
   app.use("/auth", authRoutes);
   app.use("/users", userRoutes);
   app.use("/expenses", expensesRoutes);
+  app.use("/service", serviceRoutes);
 
   app.use(errorHandler);
 
