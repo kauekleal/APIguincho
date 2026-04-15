@@ -30,6 +30,18 @@ model Expenses {
   updatedAt   DateTime @updatedAt
   createdById String?
   updatedById String?
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  value       Decimal  @db.Decimal(18, 3)
+  description String   @db.VarChar(11)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdById String?
+  updatedById String?
+
 
   createdBy User? @relation("ExpensesCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
   updatedBy User? @relation("ExpensesUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)

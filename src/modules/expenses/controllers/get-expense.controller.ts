@@ -7,7 +7,7 @@ import { PrismaExpensesRepository } from "../repositories/ExpensesRepository";
 
 export const getExpenseController = asyncHandler(
   async (req: AuthenticatedRequest, res: Response) => {
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     const expensesRepository = new PrismaExpensesRepository();
     const expense = await expensesRepository.findById(id);

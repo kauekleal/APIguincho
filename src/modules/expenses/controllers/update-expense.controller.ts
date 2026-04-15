@@ -8,7 +8,7 @@ import { UpdateExpenseService } from "../services/update-expense.service";
 
 export const updateExpenseController = asyncHandler(
   async (req: AuthenticatedRequest, res: Response) => {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const body = updateExpenseSchema.parse(req.body);
 
     const expensesRepository = new PrismaExpensesRepository();
