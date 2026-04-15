@@ -17,6 +17,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  serviceCreated Service[] @relation("ServiceUpdatedBy")
+  serviceUpdated Service[] @relation("ServiceCreatedBy")
   expensesCreated Expenses[] @relation("ExpensesCreatedBy")
   expensesUpdated Expenses[] @relation("ExpensesUpdatedBy")
 }
@@ -30,6 +32,11 @@ model Expenses {
   updatedAt   DateTime @updatedAt
   createdById String?
   updatedById String?
+
+createdBy User? @relation("ExpensesCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+updatedBy User? @relation("ExpensesUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
+
+
 }
 
 model Service {
@@ -42,9 +49,7 @@ model Service {
   createdById String?
   updatedById String?
 
+  createdBy User? @relation("ServiceCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  updatedBy User? @relation("ServiceUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
 
-  createdBy User? @relation("ExpensesCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
-  updatedBy User? @relation("ExpensesUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
-
-  @@index([category])
 }

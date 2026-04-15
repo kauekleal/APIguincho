@@ -8,7 +8,7 @@ import { RegisterUserService } from "../services/register-user.service";
 export const registerController = asyncHandler(
   async (req: Request, res: Response) => {
     const body = registerSchema.parse(req.body);
-
+console.log(body);
     const userRepository = new PrismaUserRepository();
     const registerService = new RegisterUserService(userRepository);
 
