@@ -6,6 +6,7 @@ export interface ServiceRepository {
   create(data: {
     value: Prisma.Decimal | number | string;
     description: string;
+    date?: Date | string;
     createdById?: string;
   }): Promise<Service>;
   update(
@@ -13,6 +14,7 @@ export interface ServiceRepository {
     data: {
       value?: Prisma.Decimal | number | string;
       description?: string;
+      date?: Date | string;
       updatedById?: string;
     },
   ): Promise<Service>;
@@ -25,7 +27,7 @@ export class PrismaServiceRepository implements ServiceRepository {
       where: filters?.description
         ? { description: filters.description }
         : undefined,
-      orderBy: { createdAt: "desc" },
+      orderBy: { date: "desc" },
     });
   }
 
@@ -36,12 +38,14 @@ export class PrismaServiceRepository implements ServiceRepository {
   async create(data: {
     value: Prisma.Decimal | number | string;
     description: string;
+    date?: Date | string;
     createdById?: string;
   }): Promise<Service> {
     return prisma.service.create({
       data: {
         value: data.value,
         description: data.description,
+        date: data.date ? new Date(data.date) : undefined,
         createdById: data.createdById,
       },
     });
@@ -52,11 +56,19 @@ export class PrismaServiceRepository implements ServiceRepository {
     data: {
       value?: Prisma.Decimal | number | string;
       description?: string;
+      date?: Date | string;
       updatedById?: string;
     },
   ): Promise<Service> {
-    return prisma.service.update({ where: { id }, data });
+    return prisma.service.update({
+      where: { id },
+      data: {
+        ...data,
+        date: data.date ? new Date(data.date) : undefined,
+      },
+    });
   }
+
 
   async delete(id: string): Promise<void> {
     await prisma.service.delete({ where: { id } });

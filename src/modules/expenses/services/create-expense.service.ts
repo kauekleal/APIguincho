@@ -5,6 +5,7 @@ interface CreateExpenseRequest {
   category: string;
   value: number;
   description: string;
+  date?: string;
   createdById: string;
 }
 
@@ -16,7 +17,9 @@ export class CreateExpenseService {
       category: data.category,
       value: data.value,
       description: data.description,
+      date: data.date,
       createdById: data.createdById,
     });
   }
 }
+

@@ -22,10 +22,12 @@ export const createServiceController = asyncHandler(
       id: createdService.id,
       value: createdService.value.toString(),
       description: createdService.description,
+      date: createdService.date.toISOString(),
       createdById: createdService.createdById,
       updatedById: createdService.updatedById,
       createdAt: createdService.createdAt.toISOString(),
       updatedAt: createdService.updatedAt.toISOString(),
     });
+
   },
 );

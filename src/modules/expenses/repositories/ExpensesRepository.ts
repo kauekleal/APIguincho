@@ -7,6 +7,7 @@ export interface ExpensesRepository {
     category: string;
     value: Prisma.Decimal | number | string;
     description: string;
+    date?: Date | string;
     createdById?: string;
   }): Promise<Expenses>;
   update(
@@ -15,6 +16,7 @@ export interface ExpensesRepository {
       category?: string;
       value?: Prisma.Decimal | number | string;
       description?: string;
+      date?: Date | string;
       updatedById?: string;
     },
   ): Promise<Expenses>;
@@ -25,7 +27,7 @@ export class PrismaExpensesRepository implements ExpensesRepository {
   async findAll(filters?: { category?: string }): Promise<Expenses[]> {
     return prisma.expenses.findMany({
       where: filters?.category ? { category: filters.category } : undefined,
-      orderBy: { createdAt: "desc" },
+      orderBy: { date: "desc" },
     });
   }
 
@@ -37,6 +39,7 @@ export class PrismaExpensesRepository implements ExpensesRepository {
     category: string;
     value: Prisma.Decimal | number | string;
     description: string;
+    date?: Date | string;
     createdById?: string;
   }): Promise<Expenses> {
     return prisma.expenses.create({
@@ -44,6 +47,7 @@ export class PrismaExpensesRepository implements ExpensesRepository {
         category: data.category,
         value: data.value,
         description: data.description,
+        date: data.date ? new Date(data.date) : undefined,
         createdById: data.createdById,
       },
     });
@@ -55,11 +59,19 @@ export class PrismaExpensesRepository implements ExpensesRepository {
       category?: string;
       value?: Prisma.Decimal | number | string;
       description?: string;
+      date?: Date | string;
       updatedById?: string;
     },
   ): Promise<Expenses> {
-    return prisma.expenses.update({ where: { id }, data });
+    return prisma.expenses.update({
+      where: { id },
+      data: {
+        ...data,
+        date: data.date ? new Date(data.date) : undefined,
+      },
+    });
   }
+
 
   async delete(id: string): Promise<void> {
     await prisma.expenses.delete({ where: { id } });

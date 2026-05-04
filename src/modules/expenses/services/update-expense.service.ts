@@ -7,6 +7,7 @@ interface UpdateExpenseRequest {
   category?: string;
   value?: number;
   description?: string;
+  date?: string;
   updatedById: string;
 }
 
@@ -24,6 +25,7 @@ export class UpdateExpenseService {
       category: data.category,
       value: data.value,
       description: data.description,
+      date: data.date,
       updatedById: data.updatedById,
     });
   }

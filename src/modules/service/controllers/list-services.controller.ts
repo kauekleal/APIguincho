@@ -19,11 +19,13 @@ export const listServicesController = asyncHandler(
         id: service.id,
         value: service.value.toString(),
         description: service.description,
+        date: service.date.toISOString(),
         createdById: service.createdById,
         updatedById: service.updatedById,
         createdAt: service.createdAt.toISOString(),
         updatedAt: service.updatedAt.toISOString(),
       })),
+
     );
   },
 );

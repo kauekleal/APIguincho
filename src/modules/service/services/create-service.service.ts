@@ -4,7 +4,8 @@ import { ServiceRepository } from "../repositories/ServiceRepository";
 interface CreateServiceRequest {
   value: number;
   description: string;
-  createdById?: string;
+  date?: string;
+  createdById: string;
 }
 
 export class CreateServiceService {
@@ -14,6 +15,7 @@ export class CreateServiceService {
     return this.serviceRepository.create({
       value: data.value,
       description: data.description,
+      date: data.date,
       createdById: data.createdById,
     });
   }

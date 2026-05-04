@@ -18,11 +18,13 @@ export const listExpensesController = asyncHandler(
         category: e.category,
         value: e.value.toString(),
         description: e.description,
+        date: e.date.toISOString(),
         createdById: e.createdById,
         updatedById: e.updatedById,
         createdAt: e.createdAt.toISOString(),
         updatedAt: e.updatedAt.toISOString(),
       })),
+
     );
   },
 );

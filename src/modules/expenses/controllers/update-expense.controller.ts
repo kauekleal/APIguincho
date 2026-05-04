@@ -25,10 +25,12 @@ export const updateExpenseController = asyncHandler(
       category: expense.category,
       value: expense.value.toString(),
       description: expense.description,
+      date: expense.date.toISOString(),
       createdById: expense.createdById,
       updatedById: expense.updatedById,
       createdAt: expense.createdAt.toISOString(),
       updatedAt: expense.updatedAt.toISOString(),
     });
+
   },
 );
