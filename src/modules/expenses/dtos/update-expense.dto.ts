@@ -3,7 +3,7 @@ import { z } from "zod";
 export const updateExpenseSchema = z.object({
   category: z.string().min(1).optional(),
   value: z.number().positive().optional(),
-  description: z.string().max(100).optional(),
+  description: z.string().max(500).optional(),
   date: z.string().optional(),
 });
 
